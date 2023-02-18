@@ -1,0 +1,22 @@
+########
+imports:
+- path: jupyter.jinja
+
+resources:
+- name: jupyter1
+  type: jupyter.jinja
+  properties:
+    zone: europe-west1-b
+    startup-script: |
+      #!/bin/bash
+      sudo su -
+      curl -O https://repo.anaconda.com/archive/Anaconda3-2022.10-Linux-x86_64.sh
+      bash Anaconda3-2022.10-Linux-x86_64.sh -b -p /opt/anaconda3
+      source /opt/anaconda3/bin/activate
+      jupyter notebook --generate-config
+      cat >> /root/.jupyter/jupyter_notebook_config.py << EOL
+      c = get_config()
+      c.NotebookApp.ip = '*'
+      c.NotebookApp.open_browser = False
+      c.NotebookApp.port = 8080
+      EOL
