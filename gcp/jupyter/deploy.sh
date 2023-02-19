@@ -4,18 +4,13 @@
 
 if [ $# -eq 0 ];
 then
-  echo "$0: Missing arguments"
+  echo "$0: Missing arguments. Usage: deploy.sh [unique_deployment_name]"
   exit 1
 elif [ $# -gt 1 ];
 then
   echo "$0: Too many arguments: $@"
   exit 1
 fi
-vmname=$1;
-export vmname
-echo $vmname;
-mydate=$(date +%Y%m%d);
-echo $mydate;
-deploymentname="${vmname}${mydate}deployment";
-echo $vmname;
+deploymentname=$1;
+cd "$(dirname "$0")"
 gcloud deployment-manager deployments create $deploymentname --config jupyter.yaml
