@@ -4,7 +4,7 @@
 
 if [ $# -eq 0 ];
 then
-  echo "$0: Missing arguments"
+  echo "$0: Missing arguments. Usage: deploy.sh [unique_deployment_name]"
   exit 1
 elif [ $# -gt 1 ];
 then
