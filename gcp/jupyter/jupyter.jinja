@@ -14,6 +14,7 @@ limitations under the License.
 #}
 
 {% set NAME_PREFIX = env['deployment'] + '-' + env['name'] %}
+{% set NAME_PREFIX = env['vmname'] %}
 
 resources:
 - type: compute.v1.firewall
@@ -27,12 +28,13 @@ resources:
        ports: ["8080"]
 
 - type: compute.v1.instance
-  name: {{ env["vmname"] }}
+  name: {{ vmname }}-vm
   properties:
     zone: {{ properties["zone"] }}
     machineType: https://www.googleapis.com/compute/v1/projects/{{ env["project"] }}/zones/{{ properties["zone"] }}/machineTypes/e2-standard-2
     tags:
      items: ["http","http-server","https-server"]
+
     metadata:
       items:
       # For more ways to use startup scripts on an instance, see:
