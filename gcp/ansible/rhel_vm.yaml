@@ -43,7 +43,7 @@
         interface: NVME
         type: SCRATCH
         initialize_params:
-          disk_type: local-ssd
+          disk_type: PERSISTENT
       labels:
         environment: production
       network_interfaces:
