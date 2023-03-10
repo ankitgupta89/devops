@@ -1,0 +1,50 @@
+---
+- name: Create a GCP VM
+  hosts: localhost
+  gather_facts: false
+  vars:
+    gcp_project_id: "YOUR_PROJECT_ID"
+    gcp_cred_kind: "serviceaccount"
+    gcp_cred_file: "/path/to/your/credentials.json"
+    gcp_region: "europe-west1"
+    gcp_zone: "{{ gcp_region }}-b"
+    vm_name: "ansiblevm"
+    vm_machine_type: "e2-standard-2"
+    vm_image_project: "rhel-cloud"
+    vm_image_family: "global"
+    vm_network_name: "default"
+    vm_subnetwork_name: "default"
+  tasks:
+  - name: create a instance
+    google.cloud.gcp_compute_instance:
+      name: test_object
+      machine_type: e2-standard-2
+      disks:
+      - auto_delete: 'true'
+        boot: 'true'
+        source: "{{ disk }}"
+      - auto_delete: 'true'
+        interface: NVME
+        type: SCRATCH
+        initialize_params:
+          disk_type: local-ssd
+      metadata:
+        startup-script-url: gs:://graphite-playground/bootstrap.sh
+        cost-center: '12345'
+      labels:
+        environment: production
+      network_interfaces:
+      - network: "{{ network }}"
+        access_configs:
+        - name: External NAT
+          nat_ip: "{{ address }}"
+          type: ONE_TO_ONE_NAT
+      zone: europe-west1-b
+      project: "{{ gcp_project_id }}"
+      auth_kind: serviceaccount
+      service_account_file: "/tmp/auth.pem"
+      state: present
+
+
+
+
