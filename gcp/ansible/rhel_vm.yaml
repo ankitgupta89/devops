@@ -16,6 +16,9 @@
     vm_subnetwork_name: "default"
   tasks:
 
+  - debug:
+      var: gcp_project_id
+
   - name: create a disk
     google.cloud.gcp_compute_disk:
       name: disk-instance
