@@ -3,7 +3,7 @@
   hosts: localhost
   gather_facts: false
   vars:
-    gcp_project_id: "YOUR_PROJECT_ID"
+    gcp_project_id: "{{ lookup('env', 'GOOGLE_CLOUD_PROJECT') }}"
     gcp_cred_kind: "machineaccount"
     gcp_cred_file: "/path/to/your/credentials.json"
     gcp_region: "europe-west1"
