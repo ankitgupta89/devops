@@ -33,7 +33,7 @@
 
   - name: create a instance
     google.cloud.gcp_compute_instance:
-      name: test_object
+      name: testvm
       machine_type: e2-standard-2
       disks:
       - auto_delete: 'true'
