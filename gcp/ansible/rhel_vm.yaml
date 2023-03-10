@@ -47,7 +47,7 @@
       labels:
         environment: production
       network_interfaces:
-      - network: "https://www.googleapis.com/compute/v1/projects/{{ gcp_project_id }}/global/networks/default"
+      - network: null
         access_configs:
         - name: External NAT
           type: ONE_TO_ONE_NAT
