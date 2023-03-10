@@ -4,7 +4,7 @@
   gather_facts: false
   vars:
     gcp_project_id: "YOUR_PROJECT_ID"
-    gcp_cred_kind: "serviceaccount"
+    gcp_cred_kind: "machineaccount"
     gcp_cred_file: "/path/to/your/credentials.json"
     gcp_region: "europe-west1"
     gcp_zone: "{{ gcp_region }}-b"
@@ -53,7 +53,7 @@
           type: ONE_TO_ONE_NAT
       zone: europe-west1-b
       project: "{{ gcp_project_id }}"
-      auth_kind: serviceaccount
+      auth_kind: "{{ gcp_cred_kind }}"
       service_account_file: "/tmp/auth.pem"
       state: present
 
