@@ -50,7 +50,6 @@
       zone: europe-west1-b
       project: "{{ gcp_project_id }}"
       auth_kind: "{{ gcp_cred_kind }}"
-      service_account_file: "/tmp/auth.pem"
       state: present
 
 
