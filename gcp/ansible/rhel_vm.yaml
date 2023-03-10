@@ -40,9 +40,6 @@
         type: SCRATCH
         initialize_params:
           disk_type: local-ssd
-      metadata:
-        startup-script-url: gs:://graphite-playground/bootstrap.sh
-        cost-center: '12345'
       labels:
         environment: production
       network_interfaces:
