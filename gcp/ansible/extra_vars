@@ -1,0 +1,7 @@
+---
+vm_name: "ansiblevm"
+vm_machine_type: ""
+vm_image_family: ""
+vm_image_project: ""
+vm_network_name: ""
+vm_subnetwork_name: ""

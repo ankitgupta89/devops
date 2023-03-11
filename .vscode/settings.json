@@ -1,0 +1,5 @@
+{
+    "ansible.completion.provideRedirectModules": true,
+    "ansible.validation.lint.enabled": false,
+    "ansible.validation.enabled": false
+}
