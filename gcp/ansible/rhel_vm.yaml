@@ -46,11 +46,20 @@
         access_configs:
         - name: External NAT
           type: ONE_TO_ONE_NAT
+      metadata:
+        items:
+        - key: startup-script
+          value: "{{ lookup('file', 'startup-script.sh') }}"
       zone: europe-west1-b
       project: "{{ gcp_project_id }}"
       auth_kind: "{{ gcp_cred_kind }}"
       service_account_file: "{{  gcp_cred_file  }}"
       state: present
+    register: createdvm
+
+  - name: print vm
+    debug:
+      var: createdvm
 
 
 
