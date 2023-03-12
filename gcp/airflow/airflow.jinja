@@ -1,0 +1,57 @@
+{#
+Copyright 2016 Google Inc. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+#}
+
+{% set NAME_PREFIX = env['deployment'] + '-' + env['name'] %}
+{% set NAME_PREFIX = env['vmname'] %}
+
+resources:
+- type: compute.v1.firewall
+  name: tcp-firewall-rule
+  properties:
+    network: https://www.googleapis.com/compute/v1/projects/{{ env["project"] }}/global/networks/default
+    sourceRanges: ["0.0.0.0/0"]
+    targetTags: ["http","http-server","https-server"]
+    allowed:
+     - IPProtocol: TCP
+       ports: ["8080", "8443"]
+
+- type: compute.v1.instance
+  name: {{ env["deployment"] }}-vm
+  properties:
+    zone: {{ properties["zone"] }}
+    machineType: https://www.googleapis.com/compute/v1/projects/{{ env["project"] }}/zones/{{ properties["zone"] }}/machineTypes/e2-standard-2
+    tags:
+     items: ["http","http-server","https-server"]
+
+    metadata:
+      items:
+      # For more ways to use startup scripts on an instance, see:
+      #   https://cloud.google.com/compute/docs/startupscript
+      - key: startup-script
+        value: |
+          {{ properties["startup-script"]|indent(10) }}
+    disks:
+    - deviceName: boot
+      type: PERSISTENT
+      boot: true
+      autoDelete: true
+      initializeParams:
+        sourceImage: https://www.googleapis.com/compute/v1/projects/rhel-cloud/global/images/rhel-8-v20230202
+    networkInterfaces:
+    - network: https://www.googleapis.com/compute/v1/projects/{{ env["project"] }}/global/networks/default
+      # Access Config required to give the instance a public IP address
+      accessConfigs:
+      - name: External NAT
+        type: ONE_TO_ONE_NAT

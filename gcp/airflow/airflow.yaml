@@ -1,0 +1,20 @@
+########
+imports:
+- path: airflow.jinja
+
+resources:
+- name: airflow1
+  type: airflow.jinja
+  properties:
+    zone: europe-west1-b
+    startup-script: |
+      #!/bin/bash
+      sudo su -
+      yum install -y python38
+      python3.8 -m venv /opt/airflow_venv
+      source /opt/airflow_venv/bin/activate
+      AIRFLOW_VERSION=2.5.1
+      PYTHON_VERSION="$(python --version | cut -d " " -f 2 | cut -d "." -f 1-2)"
+      CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-no-providers-${PYTHON_VERSION}.txt"
+      pip install "apache-airflow==${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}"
+      airflow db upgrade
