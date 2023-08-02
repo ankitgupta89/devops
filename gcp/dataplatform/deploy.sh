@@ -13,4 +13,4 @@ then
 fi
 deploymentname=$1;
 cd "$(dirname "$0")"
-gcloud deployment-manager deployments create $deploymentname --config hive.yaml
+gcloud deployment-manager deployments create $deploymentname --config dp.yaml
