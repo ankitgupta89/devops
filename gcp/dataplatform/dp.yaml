@@ -1,6 +1,6 @@
 ########
 imports:
-- path: hive.jinja
+- path: dp.jinja
 
 resources:
 - name: dp1
