@@ -49,6 +49,7 @@ resources:
       autoDelete: true
       initializeParams:
         sourceImage: https://www.googleapis.com/compute/v1/projects/rhel-cloud/global/images/rhel-8-v20230202
+        diskSizeGb: 50
     networkInterfaces:
     - network: https://www.googleapis.com/compute/v1/projects/{{ env["project"] }}/global/networks/default
       # Access Config required to give the instance a public IP address
