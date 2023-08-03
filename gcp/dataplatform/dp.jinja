@@ -25,7 +25,7 @@ resources:
     targetTags: ["http","http-server","https-server"]
     allowed:
      - IPProtocol: TCP
-       ports: ["8080", "8443", "10000",]
+       ports: ["8080", "8443", "10000","8081"]
 
 - type: compute.v1.instance
   name: {{ env["deployment"] }}-vm
