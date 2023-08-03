@@ -12,7 +12,7 @@ resources:
       sudo su -
       curl -LJO https://raw.githubusercontent.com/ankitgupta89/devops/nifi/gcp/dataplatform/platform_install.sh
       chmod +x platform_install.sh
-      ./platform_install.sh
+      ./platform_install.sh >> /tmp/platform_install.log
 
 
 
